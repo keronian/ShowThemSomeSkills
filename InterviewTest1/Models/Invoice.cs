@@ -76,6 +76,11 @@ namespace InterviewTest1.Models
         public decimal Shipping { get; set; }
 
         /// <summary>
+        /// Commission total, calculated at 3%
+        /// </summary>
+        public decimal Commission { get; set; }
+
+        /// <summary>
         /// Grand total, includes taxes, discounts, and shipping
         /// </summary>
         public decimal Total { get; set; }
@@ -88,7 +93,7 @@ namespace InterviewTest1.Models
                 strResult += item.ToString();
                 strResult += "\n";
             }
-            strResult += string.Format("\nSubTotal:$ {0:#,0.00}\tShipping $ {1:#,0.00}\tTotal:$ {2:#,0.00}\n\n", SubTotal, Shipping, Total);
+            strResult += string.Format("\nSubTotal:$ {0:#,0.00}\tShipping $ {1:#,0.00}\tCommission $ {2:#,0.00}\tTotal:$ {3:#,0.00}\n\n", SubTotal, Shipping, Commission, Total);
             return strResult;
         }
     }
