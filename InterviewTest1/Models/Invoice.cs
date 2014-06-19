@@ -79,5 +79,17 @@ namespace InterviewTest1.Models
         /// Grand total, includes taxes, discounts, and shipping
         /// </summary>
         public decimal Total { get; set; }
+
+        public override string ToString()
+        {
+            string strResult = string.Format("Invoice #:{0}\tCompany:{1}\tTax Rate:{2:#,0.00}\n", InvoiceNo, CompanyName, TaxRate);
+            foreach (InvoiceItem item in LineItems)
+            {
+                strResult += item.ToString();
+                strResult += "\n";
+            }
+            strResult += string.Format("\nSubTotal:$ {0:#,0.00}\tShipping $ {1:#,0.00}\tTotal:$ {2:#,0.00}\n\n", SubTotal, Shipping, Total);
+            return strResult;
+        }
     }
 }
