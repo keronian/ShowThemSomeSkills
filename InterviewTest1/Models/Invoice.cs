@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace InterviewTest1.Models
@@ -68,22 +69,44 @@ namespace InterviewTest1.Models
         /// <summary>
         /// Total of all line items total, includes tax and discounts
         /// </summary>
-        public decimal SubTotal { get; set; }
+        public decimal SubTotal {
+            get
+            {
+                return LineItems.Sum(x => x.Total);
+            }
+        }
 
         /// <summary>
         /// Actual shipping costs
         /// </summary>
         public decimal Shipping { get; set; }
 
+        private decimal _commission;
+
         /// <summary>
         /// Commission total, calculated at 3%
         /// </summary>
-        public decimal Commission { get; set; }
+        public decimal Commission { 
+            get
+            {
+                // This rounding looks odd... This is to round to the nearest 50 cents, so I double it, round to the nearest whole dollar, then cut it back in half.  Simple
+                return Math.Round(_commission * 2.0m, 0) / 2.0m;
+            }
+            set
+            {
+                _commission = value;
+            }
+        }
 
         /// <summary>
         /// Grand total, includes taxes, discounts, and shipping
         /// </summary>
-        public decimal Total { get; set; }
+        public decimal Total {
+            get
+            {
+                return SubTotal + Shipping + Commission;
+            }
+        }
 
         public override string ToString()
         {
