@@ -103,7 +103,7 @@ namespace InterviewTest1.Models
         public decimal Total {
             get
             {
-                return SubTotal + Shipping + Commission;
+                return SubTotal + Shipping;// +Commission;
             }
         }
 
