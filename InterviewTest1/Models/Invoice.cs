@@ -75,7 +75,7 @@ namespace InterviewTest1.Models
         public decimal SubTotal {
             get
             {
-                return LineItems.Sum(x => x.Total);
+                return LineItems.Sum(x => { x.calculateTotals(TaxRate); return x.Total; });
             }
         }
 
