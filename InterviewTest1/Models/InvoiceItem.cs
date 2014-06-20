@@ -30,7 +30,12 @@
         /// <summary>
         /// Total for line item not including tax or discount
         /// </summary>
-        public decimal SubTotal { get; set; }
+        public decimal SubTotal {
+            get
+            {
+                return UnitPrice * Quantity;
+            }
+        }
 
         /// <summary>
         /// Total for line item including tax
@@ -42,7 +47,6 @@
         /// </summary>
         public void calculateTotals(decimal TaxRate)
         {
-            SubTotal = UnitPrice * Quantity;
             // TaxRate and Discount should both be decimals, but they're not, so, whee, dumb math to do.
             Total = (SubTotal * (1m - Discount/100m)) * (1m + (Taxable ? TaxRate : 0m));
         }
