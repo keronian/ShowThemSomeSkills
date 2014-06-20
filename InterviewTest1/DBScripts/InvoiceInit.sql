@@ -14,10 +14,10 @@ CREATE TABLE "Invoice"
 	"ShippingDate" datetime,
 	"RequisitionDate" datetime,
 	"TaxRate" decimal(2,2),
-	"SubTotal" decimal(17,2),
-	"Shipping" decimal(17,2),
-	"Commission" decimal(17,2),
-	"Total" decimal(17,2)
+	"SubTotal" decimal(18,2),
+	"Shipping" decimal(18,2),
+	"Commission" decimal(18,2),
+	"Total" decimal(18,2)
 );
 
 CREATE TABLE "InvoiceItem"
@@ -26,8 +26,8 @@ CREATE TABLE "InvoiceItem"
 	"LineText" varchar(255),
 	"Taxable" bit,
 	"Quantity" int,
-	"UnitPrice" decimal(17,2),
+	"UnitPrice" decimal(18,2),
 	"Discount" tinyint,
-	"SubTotal" decimal(17,2),
-	"Total" decimal(17,2)
+	"SubTotal" decimal(18,2),
+	"Total" decimal(18,2)
 );
