@@ -8,8 +8,6 @@ namespace InterviewTest1
     {
         private static void Main(string[] args)
         {
-            // 3%, per instructions
-            const decimal COMMISSION_RATE = 0.03m;
 
             var data = new Repo().All();
 
@@ -17,7 +15,6 @@ namespace InterviewTest1
             {
                 inv.LineItems.ToList().ForEach(item => {
                     item.calculateTotals(inv.TaxRate);
-                    inv.Commission += item.getCommission(COMMISSION_RATE);
                 });
             }
 

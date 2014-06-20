@@ -6,6 +6,9 @@ namespace InterviewTest1.Models
 {
     public class Invoice
     {
+        // 3%, per instructions
+        const decimal COMMISSION_RATE = 0.03m;
+
         /// <summary>
         /// Customer invoice reference
         /// </summary>
@@ -81,20 +84,16 @@ namespace InterviewTest1.Models
         /// </summary>
         public decimal Shipping { get; set; }
 
-        private decimal _commission;
-
         /// <summary>
         /// Commission total, calculated at 3%
         /// </summary>
         public decimal Commission { 
             get
             {
+                decimal commission;
+                commission = LineItems.Sum(x => x.getCommission(COMMISSION_RATE));
                 // This rounding looks odd... This is to round to the nearest 50 cents, so I double it, round to the nearest whole dollar, then cut it back in half.  Simple
-                return Math.Round(_commission * 2.0m, 0) / 2.0m;
-            }
-            set
-            {
-                _commission = value;
+                return Math.Round(commission * 2.0m, 0) / 2.0m;
             }
         }
 
