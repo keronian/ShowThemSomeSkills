@@ -15,7 +15,8 @@ namespace InterviewTest1
             data.ToList().ForEach(InvoiceHelper.ExerciseOne);
             data.ToList().ForEach(x => { 
                 Console.WriteLine(string.Format("Invoice #:{0}", x.InvoiceNo)); 
-                x.LineItems.ToList().ForEach(Console.WriteLine); 
+                x.LineItems.ToList().ForEach(Console.WriteLine);
+                Console.WriteLine();
             });
             Console.ReadLine();
 
