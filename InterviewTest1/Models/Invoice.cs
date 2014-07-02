@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 namespace InterviewTest1.Models
 {
     public class Invoice
     {
-        // 3%, per instructions
-        const decimal COMMISSION_RATE = 0.03m;
-
         /// <summary>
         /// Customer invoice reference
         /// </summary>
@@ -72,12 +70,7 @@ namespace InterviewTest1.Models
         /// <summary>
         /// Total of all line items total, includes tax and discounts
         /// </summary>
-        public decimal SubTotal {
-            get
-            {
-                return LineItems.Sum(x => { x.calculateTotals(TaxRate); return x.Total; });
-            }
-        }
+        public decimal SubTotal { get; set; }
 
         /// <summary>
         /// Actual shipping costs
@@ -87,36 +80,28 @@ namespace InterviewTest1.Models
         /// <summary>
         /// Commission total, calculated at 3%
         /// </summary>
-        public decimal Commission { 
-            get
-            {
-                decimal commission;
-                commission = LineItems.Sum(x => x.getCommission(COMMISSION_RATE));
-                // This rounding looks odd... This is to round to the nearest 50 cents, so I double it, round to the nearest whole dollar, then cut it back in half.  Simple
-                return Math.Round(commission * 2.0m, 0) / 2.0m;
-            }
-        }
+        public decimal Commission { get; set; }
 
         /// <summary>
         /// Grand total, includes taxes, discounts, and shipping
         /// </summary>
-        public decimal Total {
-            get
-            {
-                return SubTotal + Shipping;// +Commission;
-            }
-        }
+        public decimal Total { get; set; }
 
         public override string ToString()
         {
-            string strResult = string.Format("Invoice #:{0}\tCompany:{1}\tTax Rate:{2:#,0.00}\n", InvoiceNo, CompanyName, TaxRate);
+            StringBuilder strResult = new StringBuilder();
+            strResult.AppendFormat("Invoice #:{0}\tCompany:{1}\tTax Rate:{2:#,0.00}\n", InvoiceNo, CompanyName, TaxRate);
             foreach (InvoiceItem item in LineItems)
             {
-                strResult += item.ToString();
-                strResult += "\n";
+                strResult.AppendLine(item.ToString());
             }
-            strResult += string.Format("\nSubTotal:$ {0:#,0.00}\tShipping $ {1:#,0.00}\tCommission $ {2:#,0.00}\tTotal:$ {3:#,0.00}\n\n", SubTotal, Shipping, Commission, Total);
-            return strResult;
+            strResult.AppendFormat("\nSubTotal:$ {0:#,0.00}\tShipping $ {1:#,0.00}", SubTotal, Shipping);
+            if (Commission != 0)
+            {
+                strResult.AppendFormat("\tCommission $ {0:#,0.00}", Commission);
+            }
+            strResult.AppendFormat("\tTotal:$ {0:#,0.00}\n\n", Total);
+            return strResult.ToString();
         }
     }
 }
